@@ -1,7 +1,10 @@
 package noorykwon.hellospring.service;
 
 import noorykwon.hellospring.domain.Member;
+import noorykwon.hellospring.repository.MemoryMemberRepository;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.*;
@@ -11,7 +14,19 @@ class MemberServiceTest {
 
     //테스트코드는 과감하게 한글메소드로 설정해도됨!
 
-    MemberService memberService = new MemberService();
+    MemberService memberService;
+    MemoryMemberRepository memberRepository;
+
+    @BeforeEach
+    public void beforeEach() {
+        memberRepository = new MemoryMemberRepository();
+        memberService = new MemberService(memberRepository);
+    }
+
+    @AfterEach
+    public void afterEach() {
+        memberRepository.clearStore();
+    }
 
     @Test
     void 회원가입() {
@@ -23,7 +38,7 @@ class MemberServiceTest {
         Long saveId = memberService.join(member);
 
         //then
-        Member findMember = memberService.findOne(member.getId()).get();
+        Member findMember = memberService.findOne(saveId).get();
         assertThat(member.getName()).isEqualTo(findMember.getName());
     }
 
@@ -52,10 +67,10 @@ class MemberServiceTest {
     }
 
     @Test
-    void findMembers() {
+    void testFindMembers() {
     }
 
     @Test
-    void findOne() {
+    void testFindOne() {
     }
 }
