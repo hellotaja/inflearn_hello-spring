@@ -5,10 +5,12 @@ import noorykwon.hellospring.repository.MemberRepository;
 import noorykwon.hellospring.repository.MemoryMemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
+@Transactional // JPA는 데이터 변경이 모두 트랜잭션 안에서 실행되어야 함
 public class MemberService {
 
     private final MemberRepository memberRepository;
