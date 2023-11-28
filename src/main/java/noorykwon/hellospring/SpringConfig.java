@@ -1,5 +1,6 @@
 package noorykwon.hellospring;
 
+import noorykwon.hellospring.aop.TimeTraceAop;
 import noorykwon.hellospring.repository.*;
 import noorykwon.hellospring.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,11 @@ public class SpringConfig {
     public MemberService memberService() {
         return new MemberService(mememberRepository());
     }
+
+//    @Bean //aop는 인지하기 편하도록 되도록이면 컴포넌트스캔 방식보다 스프링 빈에 등록하는걸 권장
+//    public TimeTraceAop timeTraceAop() {
+//        return new TimeTraceAop();
+//    }
 
     @Bean
     public MemberRepository mememberRepository() {
